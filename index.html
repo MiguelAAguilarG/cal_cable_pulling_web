@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang=es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de tubería eléctrica</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="keywords" content="conduit, tubería, calculadora , cables, tamaño">
+    <meta name="author" content="Miguel Ángel Aguilar García">
+
+</head>
+<body>
+    <header>Calculadora de tubería eléctrica</header>
+
+        <h4 class="h4_resultados">Resultados</h4>
+
+    <div class="caja2">
+        <label for="decimales" class="label-text-right">Decimales: </label>
+        <input type="number" min="3" max="16" step="1" value="3" name="decimales" id="decimales" class="datos">
+    </div>
+
+    <div class="caja_contenedor">
+        <div class="caja4">
+            <p></p>
+            <p class="text-p">Llenado<span class="text-chico">[%]</span></p>
+            <p class="text-p">Tamaño</p>
+            <p class="text-p">D. interior<span class="text-chico">[mm]</span></p>
+        </div>
+        <div class="caja4">
+            <p class = "margin-text">Tamaño menor</p>
+            <p id="llenado_porc_tamano_menor" class = "p_resultado"></p>
+            <p id="tamano_menor" class = "p_resultado"></p>
+            <p id="D_interno_menor" class = "p_resultado"></p>
+        </div>
+        <div class="caja4">
+            <p class = "margin-text">Tamaño</p>
+            <p id="llenado_porc_tamano_aprox" class = "p_resultado"></p>
+            <p id="tamano_aprox" class = "p_resultado"></p>
+            <p id="D_interno_aprox" class = "p_resultado"></p>
+        </div>
+        <div class="caja4">
+            <p class = "margin-text">Tamaño mayor</p>
+            <p id="llenado_porc_tamano_mayor" class = "p_resultado"></p>
+            <p id="tamano_mayor" class = "p_resultado"></p>
+            <p id="D_interno_mayor" class = "p_resultado"></p>
+        </div>
+
+    </div>
+
+    <div class="caja_contenedor">
+
+        <div class="caja4">
+            <p class = "margin-text">Llenado<span class="text-chico">[mm^2]:</span></p>
+            <p id="llenado_mm" class = "p_resultado"></p>
+        </div>
+
+    </div>
+
+    <h4 class="h4_datos">Datos</h4>
+
+    <div class="caja_contenedor">
+        <form id="formulario">
+            <div class=".caja6">
+                <select name="lista_desplegable_tipo_conduit" id="lista_desplegable_tipo_conduit" class="datos">
+                    <option value="EMT">EMT</option> 
+                    <option value="ENT">ENT</option> 
+                    <option value="FMC">FMC</option>
+                    <option value="IMC">IMC</option> 
+                    <option value="LFNC-A*">LFNC-A*</option> 
+                    <option value="LFNC-B*">LFNC-B*</option>
+                    <option value="LFNC-C*">LFNC-C*</option>
+                    <option value="RMC">RMC</option>
+                    <option value="PVC, cédula 40">PVC, cédula 40</option>
+                    <option value="HDPE">HDPE</option>
+                    <option value="PVC, tipo A">PVC, tipo A</option>
+                    <option value="PVC, tipo EB">PVC, tipo EB</option>
+                </select>
+
+                <select name="lista_desplegable_medida_conduit" id="lista_desplegable_medida_conduit" class="datos">
+                    <option value="AUTO " selected>AUTO</option> 
+                    <option value="1/2">1/2 in: &nbsp;&nbsp; 16 mm</option>
+                    <option value="3/4">3/4 in: &nbsp;&nbsp; 21 mm</option>
+                    <option value="1">1 in: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 27 mm</option>
+                    <option value="1 1/4">1 1/4 in: 35 mm</option>
+                    <option value="1 1/2">1 1/2 in: 41 mm</option>
+                    <option value="2">2 in: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 53 mm</option>
+                    <option value="2 1/2">2 1/2 in: 63 mm</option>
+                    <option value="3">3 in: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 78 mm</option>
+                    <option value="3 1/2">3 1/2 in: 91 mm</option>
+                    <option value="4">4 in: &nbsp;&nbsp;&nbsp; 103 mm</option>
+                    <option value="5">5 in: &nbsp;&nbsp;&nbsp; 129 mm</option>
+                    <option value="6">6 in: &nbsp;&nbsp;&nbsp; 155 mm</option>
+                </select>
+
+                <label for="input_llenado_porc" class="label-text-right">Llenado[%]: </label>
+                <input type="number" min="1" max="100" step="1" value="40" name="input_llenado_porc" id="input_llenado_porc" class="datos">
+                <label for="auto_llenado_porc" class="label-text-right">AUTO: </label>
+                <input type="checkbox" name="auto_llenado_porc" id="auto_llenado_porc" class="datos" checked>
+
+            </div>
+        </form>  
+    </div>
+
+    <div class="caja4_cables_sin_borde">
+        <p class="text-p">Aislamiento</p>
+        <p class="text-p">Calibre<span class="text-chico">[AWG/kcmil]</span></p>
+        <p class="text-p">Cantidad</p>
+        <p class="text-p">D. exterior [mm]</p>
+    </div>
+        
+    <div class="caja_contenedor">
+        <form id="formulario2">
+            <div class="caja4_cables">
+                <select name="lista_desplegable_aislamiento" id="lista_desplegable_aislamiento1" class="datos">
+                    <option value="THW, THHW, THW-2">THW, THHW, THW-2</option> 
+                    <option value="THHN, THWN, THWN-2">THHN, THWN, THWN-2</option>
+                    <option value="XHH, XHHW, XHHW-2">XHH, XHHW, XHHW-2</option>
+                    <option value="RHH, RHW, RHW-2">RHH, RHW, RHW-2</option>
+                    <option value="RHH*, RHW*, RHW-2*">RHH*, RHW*, RHW-2*</option>
+                    <option value="desnudo">Sin aislamiento</option>
+                </select>
+
+                <select name="lista_desplegable_calibre" id="lista_desplegable_calibre1" class="datos">
+                    <option value="14">14</option>
+                    <option value="12">12</option>
+                    <option value="10">10</option>
+                    <option value="8">8</option>
+                    <option value="6">6</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                    <option value="1/0">1/0</option>
+                    <option value="2/0">2/0</option>
+                    <option value="3/0">3/0</option>
+                    <option value="4/0">4/0</option>
+                    <option value="250">250</option>
+                    <option value="300">300</option>
+                    <option value="350">350</option>
+                    <option value="400">400</option>
+                    <option value="500">500</option>
+                    <option value="600">600</option>
+                    <option value="700">700</option>
+                    <option value="750">750</option>
+                    <option value="800">800</option>
+                    <option value="900">900</option>
+                    <option value="1000">1000</option>
+                    <option value="1250">1250</option>
+                    <option value="1500">1500</option>
+                    <option value="1750">1570</option>
+                    <option value="2000">2000</option>
+                </select>
+    
+                <input type="number" min="0" step="1" value="1" name="numero_conductores" id="numero_conductores1" class="datos">
+
+                <p id="D_exterior1" class = "p_resultado_cables"></p>
+            </div>
+
+        </form>
+
+        <div class=caja4_version2>
+            <input type="button" value="Quitar"  onclick="quitar()" class="datos">
+            <input type="button" value="Agregar" onclick="agregar()" class="datos">
+        </div>
+    </div>
+
+
+    <p class="nota">No aplica condiciones de atascamiento</p>
+    <p class="nota">NOM-001-SEDE-2012</p>
+    <p class="nota">NEC</p>
+    <ul class="nota">
+        <li class="nota_sinBullets">Chapter 9 tables</li>
+        <ul>
+            <li>Table 1</li>
+            <li>Table 4</li>
+            <li>Table 5</li>
+            <li>Table 8</li>
+        </ul>
+    </ul>
+
+    <script src="app.js"></script>
+    
+</body>
+
+<footer>
+    <p id="autor" > By Miguel Ángel Aguilar García</p>
+</footer>
+</html>
+
+
+
