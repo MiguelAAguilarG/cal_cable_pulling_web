@@ -3,114 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de tubería eléctrica</title>
+    <title>Calculadora de jalado de cables</title>
     <link rel="stylesheet" href="style.css">
-    <meta name="keywords" content="conduit, tubería, calculadora , cables, tamaño">
+    <meta name="keywords" content="conduit, tubería, calculadora , cables, jalado, pulling, tension, presion lateral">
     <meta name="author" content="Miguel Ángel Aguilar García">
 
 </head>
 <body>
-    <header>Calculadora de tubería eléctrica</header>
-
-        <h4 class="h4_resultados">Resultados</h4>
+    <header>Calculadora de jalado de cables</header>
 
     <div class="caja2">
-        <label for="decimales" class="label-text-right">Decimales: </label>
+        <label for="decimales">Decimales: </label>
         <input type="number" min="3" max="16" step="1" value="3" name="decimales" id="decimales" class="datos">
     </div>
 
     <div class="caja_contenedor">
-        <div class="caja4">
-            <p></p>
-            <p class="text-p">Llenado<span class="text-chico">[%]</span></p>
-            <p class="text-p">Tamaño</p>
-            <p class="text-p">D. interior<span class="text-chico">[mm]</span></p>
-        </div>
-        <div class="caja4">
-            <p class = "margin-text">Tamaño menor</p>
-            <p id="llenado_porc_tamano_menor" class = "p_resultado"></p>
-            <p id="tamano_menor" class = "p_resultado"></p>
-            <p id="D_interno_menor" class = "p_resultado"></p>
-        </div>
-        <div class="caja4">
-            <p class = "margin-text">Tamaño</p>
-            <p id="llenado_porc_tamano_aprox" class = "p_resultado"></p>
-            <p id="tamano_aprox" class = "p_resultado"></p>
-            <p id="D_interno_aprox" class = "p_resultado"></p>
-        </div>
-        <div class="caja4">
-            <p class = "margin-text">Tamaño mayor</p>
-            <p id="llenado_porc_tamano_mayor" class = "p_resultado"></p>
-            <p id="tamano_mayor" class = "p_resultado"></p>
-            <p id="D_interno_mayor" class = "p_resultado"></p>
-        </div>
-
-    </div>
-
-    <div class="caja_contenedor">
-
-        <div class="caja4">
-            <p class = "margin-text">Llenado<span class="text-chico">[mm^2]:</span></p>
-            <p id="llenado_mm" class = "p_resultado"></p>
-        </div>
-
-    </div>
-
-    <h4 class="h4_datos">Datos</h4>
-
-    <div class="caja_contenedor">
         <form id="formulario">
-            <div class=".caja6">
-                <select name="lista_desplegable_tipo_conduit" id="lista_desplegable_tipo_conduit" class="datos">
-                    <option value="EMT">EMT</option> 
-                    <option value="ENT">ENT</option> 
-                    <option value="FMC">FMC</option>
-                    <option value="IMC">IMC</option> 
-                    <option value="LFNC-A*">LFNC-A*</option> 
-                    <option value="LFNC-B*">LFNC-B*</option>
-                    <option value="LFNC-C*">LFNC-C*</option>
-                    <option value="RMC">RMC</option>
-                    <option value="PVC, cédula 40">PVC, cédula 40</option>
-                    <option value="HDPE">HDPE</option>
-                    <option value="PVC, tipo A">PVC, tipo A</option>
-                    <option value="PVC, tipo EB">PVC, tipo EB</option>
-                </select>
+            <div class="caja3">
+                <label for="peso_cable" class="label-text-right">Peso cable: </label>
+                <input type="number" name="peso_cable" id="peso_cable" class="datos">
+                <p> [kg/m]</p>
+            </div>
 
-                <select name="lista_desplegable_medida_conduit" id="lista_desplegable_medida_conduit" class="datos">
-                    <option value="AUTO " selected>AUTO</option> 
-                    <option value="1/2">1/2 in: &nbsp;&nbsp; 16 mm</option>
-                    <option value="3/4">3/4 in: &nbsp;&nbsp; 21 mm</option>
-                    <option value="1">1 in: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 27 mm</option>
-                    <option value="1 1/4">1 1/4 in: 35 mm</option>
-                    <option value="1 1/2">1 1/2 in: 41 mm</option>
-                    <option value="2">2 in: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 53 mm</option>
-                    <option value="2 1/2">2 1/2 in: 63 mm</option>
-                    <option value="3">3 in: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 78 mm</option>
-                    <option value="3 1/2">3 1/2 in: 91 mm</option>
-                    <option value="4">4 in: &nbsp;&nbsp;&nbsp; 103 mm</option>
-                    <option value="5">5 in: &nbsp;&nbsp;&nbsp; 129 mm</option>
-                    <option value="6">6 in: &nbsp;&nbsp;&nbsp; 155 mm</option>
-                </select>
+            <div class="caja3">
+                <label for="Tm_insertada" class="label-text-right">Tensión máxima definida: </label>
+                <input type="number" name="Tm_insertada" id="Tm_insertada" class="datos">
+                <p> [kg]</p>
+            </div>
 
-                <label for="input_llenado_porc" class="label-text-right">Llenado[%]: </label>
-                <input type="number" min="1" max="100" step="1" value="40" name="input_llenado_porc" id="input_llenado_porc" class="datos">
-                <label for="auto_llenado_porc" class="label-text-right">AUTO: </label>
-                <input type="checkbox" name="auto_llenado_porc" id="auto_llenado_porc" class="datos" checked>
+            <div class="caja3">
+                <label for="Tm_factor" class="label-text-right">Tensión máxima (factor): </label>
+                <input type="number" name="Tm_factor" id="Tm_factor" class="datos">
+                <p> [kg/mm^2]</p>
+            </div>
 
+            <div class="caja3">
+                <label for="PL_maxima" class="label-text-right">Presión Lateral máxima: </label>
+                <input type="number" name="TPL_maxima" id="PL_maxima" class="datos">
+                <p> [kg/m]</p>
+            </div>
+
+            <div class="caja3">
+                <label for="coeficiente_friccion_dinamica" class="label-text-right">Coeficiente fricción dinámica: </label>
+                <input type="number" name="coeficiente_friccion_dinamica" id="coeficiente_friccion_dinamica" class="datos">
+                <p></p>
             </div>
         </form>  
     </div>
 
-    <div class="caja4_cables_sin_borde">
-        <p class="text-p">Aislamiento</p>
-        <p class="text-p">Calibre<span class="text-chico">[AWG/kcmil]</span></p>
-        <p class="text-p">Cantidad</p>
-        <p class="text-p">D. exterior [mm]</p>
-    </div>
-        
+    <br>
+
     <div class="caja_contenedor">
+        <div class="caja5_cables_sin_borde">
+            <p>Aislamiento</p>
+            <p>Calibre <span class="text-chico">[AWG/kcmil]</span></p>
+            <p>Cantidad</p>
+            <p>D. exterior [mm]</p>
+            <p></p>
+        </div>
+
         <form id="formulario2">
-            <div class="caja4_cables">
+            <div class="caja5_cables">
                 <select name="lista_desplegable_aislamiento" id="lista_desplegable_aislamiento1" class="datos">
                     <option value="THW, THHW, THW-2">THW, THHW, THW-2</option> 
                     <option value="THHN, THWN, THWN-2">THHN, THWN, THWN-2</option>
@@ -154,32 +107,168 @@
                 <input type="number" min="0" step="1" value="1" name="numero_conductores" id="numero_conductores1" class="datos">
 
                 <p id="D_exterior1" class = "p_resultado_cables"></p>
+                <input type="radio" name="opcion_cable_personalizado" value="cable_tipo" id="cable_tipo_radio" checked="checked">
             </div>
 
+            <div class="caja5_cables">
+                <p></p>
+                <p></p>
+                <input type="number" min="1" max="4" step="1" name="numero_conductores" id="numero_conductores" class="datos">
+                <input type="number" name="D_exterior_insertado" id="D_exterior_insertado" class="datos">
+                <input type="radio" name="opcion_cable_personalizado" value="cable_personalizado" id="cable_personalizado_radio">
+            </div>
         </form>
+    </div>
 
-        <div class=caja4_version2>
-            <input type="button" value="Quitar"  onclick="quitar()" class="datos">
-            <input type="button" value="Agregar" onclick="agregar()" class="datos">
+    <br>
+
+    <div class="caja_contenedor">
+        <form id="formulario3">
+            <div class="caja7">
+                <span>Ducto </span>
+
+                <select name="lista_desplegable_tipo_conduit" id="lista_desplegable_tipo_conduit" class="datos">
+                    <option value="EMT">EMT</option> 
+                    <option value="ENT">ENT</option> 
+                    <option value="FMC">FMC</option>
+                    <option value="IMC">IMC</option> 
+                    <option value="LFNC-A*">LFNC-A*</option> 
+                    <option value="LFNC-B*">LFNC-B*</option>
+                    <option value="LFNC-C*">LFNC-C*</option>
+                    <option value="RMC">RMC</option>
+                    <option value="PVC, cédula 40">PVC, cédula 40</option>
+                    <option value="HDPE">HDPE</option>
+                    <option value="PVC, tipo A">PVC, tipo A</option>
+                    <option value="PVC, tipo EB">PVC, tipo EB</option>
+                </select>
+
+                <select name="lista_desplegable_medida_conduit" id="lista_desplegable_medida_conduit" class="datos">
+                    <option value="AUTO " selected>AUTO</option> 
+                    <option value="1/2">1/2 in: &nbsp;&nbsp; 16 mm</option>
+                    <option value="3/4">3/4 in: &nbsp;&nbsp; 21 mm</option>
+                    <option value="1">1 in: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 27 mm</option>
+                    <option value="1 1/4">1 1/4 in: 35 mm</option>
+                    <option value="1 1/2">1 1/2 in: 41 mm</option>
+                    <option value="2">2 in: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 53 mm</option>
+                    <option value="2 1/2">2 1/2 in: 63 mm</option>
+                    <option value="3">3 in: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 78 mm</option>
+                    <option value="3 1/2">3 1/2 in: 91 mm</option>
+                    <option value="4">4 in: &nbsp;&nbsp;&nbsp; 103 mm</option>
+                    <option value="5">5 in: &nbsp;&nbsp;&nbsp; 129 mm</option>
+                    <option value="6">6 in: &nbsp;&nbsp;&nbsp; 155 mm</option>
+                </select>
+
+                <label for="input_llenado_porc" class="label-text-right">Llenado[%]: </label>
+                <input type="number" min="1" max="100" step="1" value="40" name="input_llenado_porc" id="input_llenado_porc" class="datos">
+                <label for="auto_llenado_porc" class="label-text-right">AUTO: </label>
+                <input type="checkbox" name="auto_llenado_porc" id="auto_llenado_porc" class="datos" checked>
+            </div>
+
+            <div class="caja5_version3">
+                <label for="claro_insertado">Claro >= </label>
+                <input type="number" min="1" step="1" value="25" name="claro_insertado" id="claro_insertado" class="datos">
+                <span> [mm]</span>
+
+                <label for="auto_claro" class="label-text-right">AUTO: </label>
+                <input type="checkbox" name="auto_claro" id="auto_claro" class="datos" checked>
+            </div>
+
+            <div class="caja7_version2">
+                <span>Atascamiento: </span>
+
+                <input type="number" min="2.4" max="3.2"  step="0.1" value="3.2" name="atascamiento_inferior_insertado" id="atascamiento_inferior_insertado" class="datos">
+                <span class="text-center">d <= D <= </span>
+                <input type="number" min="2.4" max="3.2"  step="0.1" value="3.2" name="atascamiento_superior_insertado" id="atascamiento_superior_insertado" class="datos">
+                <span>d</span>
+
+                <label for="auto_atascamiento" class="label-text-right">AUTO: </label>
+                <input type="checkbox" name="auto_atascamiento" id="auto_atascamiento" class="datos" checked>
+            </div>
+        </form>
+    </div>
+
+    <br>
+
+    <div class="caja_contenedor">
+        <div class="caja3">
+            <label for="peso_cable" class="label-text-right">Peso cable: </label>
+            <input type="number" name="peso_cable" id="peso_cable" class="datos">
+            <p> [kg/m]</p>
+        </div>
+
+        <div class="caja3">
+            <label for="Tm_insertada" class="label-text-right">Tensión máxima definida: </label>
+            <input type="number" name="Tm_insertada" id="Tm_insertada" class="datos">
+            <p> [kg]</p>
+        </div>
+
+        <div class="caja3">
+            <label for="Tm_factor" class="label-text-right">Tensión máxima (factor): </label>
+            <input type="number" name="Tm_factor" id="Tm_factor" class="datos">
+            <p> [kg/mm^2]</p>
+        </div>
+
+        <div class="caja3">
+            <label for="PL_maxima" class="label-text-right">Presión Lateral máxima: </label>
+            <input type="number" name="TPL_maxima" id="PL_maxima" class="datos">
+            <p> [kg/m]</p>
+        </div>
+
+        <div class="caja3">
+            <label for="coeficiente_friccion_dinamica" class="label-text-right">Coeficiente fricción dinámica: </label>
+            <input type="number" name="coeficiente_friccion_dinamica" id="coeficiente_friccion_dinamica" class="datos">
+            <p></p>
         </div>
     </div>
 
+    <br>
 
-    <p class="nota">No aplica condiciones de atascamiento</p>
-    <p class="nota">NOM-001-SEDE-2012</p>
-    <p class="nota">NEC</p>
-    <ul class="nota">
-        <li class="nota_sinBullets">Chapter 9 tables</li>
-        <ul>
-            <li>Table 1</li>
-            <li>Table 4</li>
-            <li>Table 5</li>
-            <li>Table 8</li>
+    <div class="caja_contenedor">
+        <div class="caja9_sin_borde">
+            <p>Inicio</p>
+            <p>Fin</p>
+            <p>Tensión/ Presión Lateral</p>
+            <p>Inclinación/ Ángulo Horizontal</p>
+            <p>Recta/ Curva</p>
+            <p>Prsonlzar</p>
+            <p>Cumple</p>
+            <p>Agregar</p>
+            <p>Quitar</p>
+        </div>
+
+        <form id="formulario4">
+            <div class="caja9">
+                <p class="resultados">1</p>
+                <p class="resultados">2</p>
+                <input type="number" min="2.4" max="3.2"  step="0.1" value="3.2" name="atascamiento_superior_insertado" id="atascamiento_superior_insertado" class="datos">
+                <input type="number" min="2.4" max="3.2"  step="0.1" value="3.2" name="atascamiento_superior_insertado" id="atascamiento_superior_insertado" class="datos">
+                <select name="lista_desplegable_medida_conduit" id="lista_desplegable_medida_conduit" class="datos">
+                    <option value="recta" selected>Recta</option> 
+                    <option value="curva">Curva</option>
+                </select>
+                <input type="checkbox" name="auto_atascamiento" id="auto_atascamiento" class="datos" checked>
+                <p class="resultados">NO PASA</p>
+                <input type="button" value="Agregar" onclick="agregar()" class="datos">
+                <input type="button" value="Quitar"  onclick="quitar()" class="datos">
+            </div>
+        </form>
+    </div>
+
+        <p class="nota">No aplica condiciones de atascamiento</p>
+        <p class="nota">NOM-001-SEDE-2012</p>
+        <p class="nota">NEC</p>
+        <ul class="nota">
+            <li class="nota_sinBullets">Chapter 9 tables</li>
+            <ul>
+                <li>Table 1</li>
+                <li>Table 4</li>
+                <li>Table 5</li>
+                <li>Table 8</li>
+            </ul>
         </ul>
-    </ul>
-
-    <script src="app.js"></script>
     
+        <script src="app.js"></script>
+        
 </body>
 
 <footer>
