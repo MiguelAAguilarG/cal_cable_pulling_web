@@ -27,26 +27,15 @@ p{
     padding: 0px;
 }
 
-h4{
-    margin: 0px auto;
-    line-height: 1em;
-    padding: 0px;
-}
-
-.p_resultado_cables{
-    border: solid 1px;
-    margin: 2px;
-    background-color: aliceblue;
-}
-
 .datos{
-    background-color: azure;
+    background-color: lightcyan;
 }
 
 .resultados{
     border: solid 1px;
     margin: 1px;
     padding: 1px;
+    padding-left: 4px;
     background-color: aliceblue;
 }
 
@@ -64,7 +53,7 @@ h4{
 
 .caja3{
     display: grid;
-    grid-template-columns: minmax(13em, 13em) minmax(5em, 5em) minmax(5em, 5em);
+    grid-template-columns: minmax(17em, 17em) minmax(5em, 5em) minmax(5em, 5em);
     grid-column: 1 / -1;
     margin: 2px;
     padding: 2px;
@@ -88,22 +77,16 @@ h4{
     padding: 2px;
 }
 
-.caja5_cables{
+.caja5_cables, .caja5_cables_sin_borde{
     display: grid;
     grid-template-columns: minmax(7em, 11em) minmax(6em, 10em) minmax(5em, 5em) minmax(4em, 8em) minmax(2em, 2em);
     grid-column: 1 / -1;
-    border: solid 1px;
     margin: 2px;
     padding: 2px;
 }
 
-.caja5_cables_sin_borde{
-    display: grid;
-    grid-template-columns: minmax(7em, 11em) minmax(6em, 10em) minmax(5em, 5em) minmax(4em, 8em) minmax(2em, 2em);
-    grid-column: 1 / -1;
-    margin: 2px;
-    margin-left: 1em;
-    padding: 2px;
+.caja5_cables{
+    border: solid 1px;
 }
 
 .caja7{
@@ -124,23 +107,20 @@ h4{
     padding: 2px;
 }
 
-.caja9{
+.caja13, .caja13_sin_borde{
     display: grid;
-    grid-template-columns: minmax(3em, 3em) minmax(3em, 3em) minmax(6em, 6em) minmax(6em, 6em) minmax(5em, 5em) minmax(5em, 5em) minmax(5em, 5em) minmax(4em, 4em) minmax(4em, 4em);
+    grid-template-columns: minmax(2em, 3em) minmax(2em, 3em) minmax(4em, 6em) minmax(4em, 6em) minmax(4em, 5em) minmax(4em, 5em) minmax(4em, 5em) minmax(4em, 5em) minmax(3em, 5em) minmax(3em, 5em) minmax(4em, 5em) minmax(3em, 4em) minmax(2em, 4em);
     grid-column: 1 / -1;
-    border: solid 1px;
     margin: 2px;
     padding: 2px;
 }
 
-.caja9_sin_borde{
-    display: grid;
-    grid-template-columns: minmax(3em, 3em) minmax(3em, 3em) minmax(6em, 6em) minmax(6em, 6em) minmax(5em, 5em) minmax(5em, 5em) minmax(5em, 5em) minmax(4em, 4em) minmax(4em, 4em);
-    grid-column: 1 / -1;
+.caja13{
+    border: solid 1px;
+}
+
+.caja13_sin_borde{
     text-align: center;
-    margin: 2px;
-    padding: 2px;
-    padding-left: 4px;
 }
 
 .margin-text
@@ -162,10 +142,6 @@ h4{
     margin: 1px;
 }
 
-.text-chico{
-    font-size: small;
-}
-
 .nota{
     font-style: italic;
     font-size: small;
@@ -184,6 +160,10 @@ h4{
     text-align: center;
 }
 
-@media screen and (min-width:400px) and (max-width:549px) {
+@media screen and (min-width:320px) and (max-width:1000px) {
     body{max-width: 100%;}
+    *{font-size: 2.2vw;}
+    .caja13 p{font-size: 1.5vw;}
+    .caja13 input{font-size: 1.5vw;}
+    .caja13_sin_borde p {font-size: 1.5vw;}
     }

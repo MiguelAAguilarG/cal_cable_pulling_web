@@ -20,31 +20,37 @@
     <div class="caja_contenedor">
         <form id="formulario">
             <div class="caja3">
-                <label for="peso_cable" class="label-text-right">Peso cable: </label>
+                <label for="peso_cable" class="label-text-right">Peso cable (W): </label>
                 <input type="number" name="peso_cable" id="peso_cable" class="datos">
                 <p> [kg/m]</p>
             </div>
 
             <div class="caja3">
-                <label for="Tm_insertada" class="label-text-right">Tensión máxima definida: </label>
-                <input type="number" name="Tm_insertada" id="Tm_insertada" class="datos">
+                <label for="Tm_insertada" class="label-text-right">Tensión del dispositivo (Tdevice): </label>
+                <input type="number" name="T_dispositivo" id="T_dispositivo" class="datos">
                 <p> [kg]</p>
             </div>
 
             <div class="caja3">
-                <label for="Tm_factor" class="label-text-right">Tensión máxima (factor): </label>
+                <label for="Tm_insertada" class="label-text-right">Tensión máxima definida por el usuario: </label>
+                <input type="number" name="T_dispositivo" id="T_dispositivo" class="datos">
+                <p> [kg]</p>
+            </div>
+
+            <div class="caja3">
+                <label for="Tm_factor" class="label-text-right">Tensión máxima permisible (factor): </label>
                 <input type="number" name="Tm_factor" id="Tm_factor" class="datos">
                 <p> [kg/mm^2]</p>
             </div>
 
             <div class="caja3">
-                <label for="PL_maxima" class="label-text-right">Presión Lateral máxima: </label>
-                <input type="number" name="TPL_maxima" id="PL_maxima" class="datos">
+                <label for="PL_maxima" class="label-text-right">Presión Lateral máxima (PLm): </label>
+                <input type="number" name="PL_maxima" id="PL_maxima" class="datos">
                 <p> [kg/m]</p>
             </div>
 
             <div class="caja3">
-                <label for="coeficiente_friccion_dinamica" class="label-text-right">Coeficiente fricción dinámica: </label>
+                <label for="coeficiente_friccion_dinamica" class="label-text-right">Coeficiente fricción dinámica (&#956): </label>
                 <input type="number" name="coeficiente_friccion_dinamica" id="coeficiente_friccion_dinamica" class="datos">
                 <p></p>
             </div>
@@ -106,13 +112,13 @@
     
                 <input type="number" min="0" step="1" value="1" name="numero_conductores" id="numero_conductores1" class="datos">
 
-                <p id="D_exterior1" class = "p_resultado_cables"></p>
+                <p id="D_exterior1" class = "resultados"></p>
                 <input type="radio" name="opcion_cable_personalizado" value="cable_tipo" id="cable_tipo_radio" checked="checked">
             </div>
 
             <div class="caja5_cables">
                 <p></p>
-                <p></p>
+                <p style="text-align: right;">Personalizado  </p>
                 <input type="number" min="1" max="4" step="1" name="numero_conductores" id="numero_conductores" class="datos">
                 <input type="number" name="D_exterior_insertado" id="D_exterior_insertado" class="datos">
                 <input type="radio" name="opcion_cable_personalizado" value="cable_personalizado" id="cable_personalizado_radio">
@@ -164,6 +170,18 @@
                 <input type="checkbox" name="auto_llenado_porc" id="auto_llenado_porc" class="datos" checked>
             </div>
 
+            <div class="caja7_version2">
+                <span>Atascamiento: </span>
+
+                <input type="number" min="2.4" max="2.8"  step="0.1" value="2.8" name="atascamiento_inferior_insertado" id="atascamiento_inferior_insertado" class="datos">
+                <span class="text-center">d <= D <= </span>
+                <input type="number" min="2.8" max="3.2"  step="0.1" value="3.2" name="atascamiento_superior_insertado" id="atascamiento_superior_insertado" class="datos">
+                <span>d</span>
+
+                <label for="auto_atascamiento" class="label-text-right">AUTO: </label>
+                <input type="checkbox" name="auto_atascamiento" id="auto_atascamiento" class="datos" checked>
+            </div>
+
             <div class="caja5_version3">
                 <label for="claro_insertado">Claro >= </label>
                 <input type="number" min="1" step="1" value="25" name="claro_insertado" id="claro_insertado" class="datos">
@@ -172,18 +190,6 @@
                 <label for="auto_claro" class="label-text-right">AUTO: </label>
                 <input type="checkbox" name="auto_claro" id="auto_claro" class="datos" checked>
             </div>
-
-            <div class="caja7_version2">
-                <span>Atascamiento: </span>
-
-                <input type="number" min="2.4" max="3.2"  step="0.1" value="3.2" name="atascamiento_inferior_insertado" id="atascamiento_inferior_insertado" class="datos">
-                <span class="text-center">d <= D <= </span>
-                <input type="number" min="2.4" max="3.2"  step="0.1" value="3.2" name="atascamiento_superior_insertado" id="atascamiento_superior_insertado" class="datos">
-                <span>d</span>
-
-                <label for="auto_atascamiento" class="label-text-right">AUTO: </label>
-                <input type="checkbox" name="auto_atascamiento" id="auto_atascamiento" class="datos" checked>
-            </div>
         </form>
     </div>
 
@@ -191,44 +197,54 @@
 
     <div class="caja_contenedor">
         <div class="caja3">
-            <label for="peso_cable" class="label-text-right">Peso cable: </label>
-            <input type="number" name="peso_cable" id="peso_cable" class="datos">
-            <p> [kg/m]</p>
-        </div>
-
-        <div class="caja3">
-            <label for="Tm_insertada" class="label-text-right">Tensión máxima definida: </label>
-            <input type="number" name="Tm_insertada" id="Tm_insertada" class="datos">
+            <label for="T_conductor" class="label-text-right">Tensión en cada condutor (Tc): </label>
+            <input type="number" name="T_conductor" id="T_conductor" class="resultados">
             <p> [kg]</p>
         </div>
 
         <div class="caja3">
-            <label for="Tm_factor" class="label-text-right">Tensión máxima (factor): </label>
-            <input type="number" name="Tm_factor" id="Tm_factor" class="datos">
-            <p> [kg/mm^2]</p>
+            <label for="T_cable" class="label-text-right">Tension en el cable* (Tcable): </label>
+            <input type="number" name="T_cable" id="T_cable" class="resultados">
+            <p> [kg]</p>
         </div>
 
         <div class="caja3">
-            <label for="PL_maxima" class="label-text-right">Presión Lateral máxima: </label>
-            <input type="number" name="TPL_maxima" id="PL_maxima" class="datos">
-            <p> [kg/m]</p>
+            <label for="T_maxima" class="label-text-right">Tensión máxima permisible (Tm): </label>
+            <input type="number" name="T_maxima" id="T_maxima" class="resultados">
+            <p> [kg]</p>
         </div>
 
         <div class="caja3">
-            <label for="coeficiente_friccion_dinamica" class="label-text-right">Coeficiente fricción dinámica: </label>
-            <input type="number" name="coeficiente_friccion_dinamica" id="coeficiente_friccion_dinamica" class="datos">
+            <label for="peso_total_cable" class="label-text-right">Peso total del cable: </label>
+            <input type="number" name="peso_total_cable" id="peso_total_cable" class="resultados">
+            <p> [kg]</p>
+        </div>
+
+        <div class="caja3">
+            <label for="w" class="label-text-right">Factor de correción de peso (w): </label>
+            <input type="number" name="w" id="w" class="resultados">
             <p></p>
+        </div>
+
+        <div class="caja3">
+            <label for="L_maxima" class="label-text-right">Longitud máxima (una sola recta, Lm): </label>
+            <input type="number" name="L_maxima" id="L_maxima" class="resultados">
+            <p> [m]</p>
         </div>
     </div>
 
     <br>
 
     <div class="caja_contenedor">
-        <div class="caja9_sin_borde">
+        <div class="caja13_sin_borde">
             <p>Inicio</p>
             <p>Fin</p>
-            <p>Tensión/ Presión Lateral</p>
-            <p>Inclinación/ Ángulo Horizontal</p>
+            <p>Tensión</p>
+            <p>Presión Lateral</p>
+            <p>Longitud</p>
+            <p>Inclinación</p>
+            <p>Radio (interno) de curvatura</p>
+            <p>Ángulo Horizontal</p>
             <p>Recta/ Curva</p>
             <p>Prsonlzar</p>
             <p>Cumple</p>
@@ -237,16 +253,20 @@
         </div>
 
         <form id="formulario4">
-            <div class="caja9">
+            <div class="caja13">
                 <p class="resultados">1</p>
                 <p class="resultados">2</p>
+                <p class="resultados">3</p>
+                <p class="resultados">4</p>
+                <input type="number" min="2.4" max="3.2"  step="0.1" value="3.2" name="atascamiento_superior_insertado" id="atascamiento_superior_insertado" class="datos">
+                <input type="number" min="2.4" max="3.2"  step="0.1" value="3.2" name="atascamiento_superior_insertado" id="atascamiento_superior_insertado" class="datos">
                 <input type="number" min="2.4" max="3.2"  step="0.1" value="3.2" name="atascamiento_superior_insertado" id="atascamiento_superior_insertado" class="datos">
                 <input type="number" min="2.4" max="3.2"  step="0.1" value="3.2" name="atascamiento_superior_insertado" id="atascamiento_superior_insertado" class="datos">
                 <select name="lista_desplegable_medida_conduit" id="lista_desplegable_medida_conduit" class="datos">
                     <option value="recta" selected>Recta</option> 
                     <option value="curva">Curva</option>
                 </select>
-                <input type="checkbox" name="auto_atascamiento" id="auto_atascamiento" class="datos" checked>
+                <span style="text-align:center; vertical-align:middle"><input type="checkbox" name="auto_atascamiento" id="auto_atascamiento"checked></span>
                 <p class="resultados">NO PASA</p>
                 <input type="button" value="Agregar" onclick="agregar()" class="datos">
                 <input type="button" value="Quitar"  onclick="quitar()" class="datos">
@@ -254,7 +274,7 @@
         </form>
     </div>
 
-        <p class="nota">No aplica condiciones de atascamiento</p>
+        <p class="nota">* Tensión máxima permisible en el cable multiconductor (Tcable) o conjunto de conductores en paralelo (solo si es jalado por ojillo de tracción)</p>
         <p class="nota">NOM-001-SEDE-2012</p>
         <p class="nota">NEC</p>
         <ul class="nota">
