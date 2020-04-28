@@ -18,24 +18,31 @@ header{
 }
 
 footer{
-
     padding: 10px;
 }
 
 p{
-    margin: 0px;
-    padding: 0px;
+    margin: 1px;
+    padding: 1px;
 }
 
-.datos{
-    background-color: lightcyan;
-}
-
-.resultados{
+.datos, .resultados{
     border: solid 1px;
     margin: 1px;
     padding: 1px;
     padding-left: 4px;
+    padding-right: 4px;
+}
+
+.datos, .datos_boton{
+    background-color: lightcyan;
+}
+
+.datos_boton{
+    border-radius: 6px;
+}
+
+.resultados{
     background-color: aliceblue;
 }
 
@@ -43,15 +50,15 @@ p{
     border: solid 2px;
 }
 
-.caja2{
+.caja_decimales{
     display: grid;
-    grid-template-columns: minmax(5em, 5em) minmax(5em, 5em);
+    grid-template-columns: minmax(11em, 11em) minmax(5em, 5em);
     grid-column: 1 / -1;
     margin: 2px;
     padding: 2px;
 }
 
-.caja3{
+.caja_datos, .caja_resultados{
     display: grid;
     grid-template-columns: minmax(17em, 17em) minmax(5em, 5em) minmax(5em, 5em);
     grid-column: 1 / -1;
@@ -59,16 +66,7 @@ p{
     padding: 2px;
 }
 
-.caja5_version2{
-    display: grid;
-    grid-template-columns: minmax(3em, 3em) minmax(4em, 4em) minmax(3em, 3em) minmax(4em, 4em) minmax(2em, 2em);
-    grid-column: 1 / -1;
-    border: solid 1px;
-    margin: 2px;
-    padding: 2px;
-}
-
-.caja5_version3{
+.caja_claro{
     display: grid;
     grid-template-columns: minmax(4em, 4em) minmax(4em, 4em) minmax(3em, 3em) minmax(4em, 4em) minmax(2em, 2em);
     grid-column: 1 / -1;
@@ -77,57 +75,114 @@ p{
     padding: 2px;
 }
 
-.caja5_cables, .caja5_cables_sin_borde{
+.caja_cables, .caja_cables_sin_borde{
     display: grid;
-    grid-template-columns: minmax(7em, 11em) minmax(6em, 10em) minmax(5em, 5em) minmax(4em, 8em) minmax(2em, 2em);
+    grid-template-columns: minmax(7em, 11em) minmax(6em, 10em) minmax(7em, 7em) minmax(4em, 9em) minmax(2em, 2em);
     grid-column: 1 / -1;
     margin: 2px;
     padding: 2px;
 }
 
-.caja5_cables{
+.caja_cables{
     border: solid 1px;
 }
 
-.caja7{
+.caja_Dd{
     display: grid;
-    grid-template-columns: minmax(3em, 3em) minmax(5em, 8em) minmax(5em, 8em) minmax(6em, 6em) minmax(4em, 4em) minmax(4em, 4em) minmax(2em, 2em);
-    grid-column: 1 / -1;
-    border: solid 1px;
-    margin: 2px;
-    padding: 2px;
-}
-
-.caja7_version2{
-    display: grid;
-    grid-template-columns: minmax(6em, 6em) minmax(4em, 4em) minmax(5em, 5em) minmax(4em, 4em) minmax(2em, 2em) minmax(4em, 4em) minmax(2em, 2em);
-    grid-column: 1 / -1;
-    border: solid 1px;
-    margin: 2px;
-    padding: 2px;
-}
-
-.caja13, .caja13_sin_borde{
-    display: grid;
-    grid-template-columns: minmax(2em, 3em) minmax(2em, 3em) minmax(4em, 6em) minmax(4em, 6em) minmax(4em, 5em) minmax(4em, 5em) minmax(4em, 5em) minmax(4em, 5em) minmax(3em, 5em) minmax(3em, 5em) minmax(4em, 5em) minmax(3em, 4em) minmax(2em, 4em);
+    grid-template-columns: max-content minmax(4em, 4em);
     grid-column: 1 / -1;
     margin: 2px;
     padding: 2px;
 }
 
-.caja13{
+.caja_ducto{
+    display: grid;
+    grid-template-columns: minmax(3em, 3em) minmax(5em, 8em) minmax(5em, 8em) minmax(8em, 8em) minmax(4em, 4em) minmax(4em, 4em) minmax(2em, 2em);
+    grid-column: 1 / -1;
+    margin: 2px;
+    padding: 2px;
+}
+
+.caja_ducto_resultados{
+    display: grid;
+    grid-template-columns: minmax(3em, 3em) minmax(5em, 8em) minmax(5em, 8em) minmax(8em, 8em) minmax(4em, 4em) minmax(10em, 10em) minmax(5em, 5em) minmax(8em, 8em) minmax(6em, 6em);
+    grid-column: 1 / -1;
+    margin: 2px;
+    padding: 2px;
+}
+
+.caja_Dd{
+    display: grid;
+    grid-template-columns: max-content minmax(4em, 4em);
+    grid-column: 1 / -1;
+}
+
+.configuracion, .atascamiento, .claro{
+    display: grid;
+    grid-template-columns: max-content minmax(5em, 5em);
+    grid-column: 1 / -1;
+}
+
+.claro{
+    grid-template-columns: max-content minmax(7em, 7em);
+}
+
+.caja_configuracion{
+    display: grid;
+    grid-template-columns: max-content  minmax(5em, 5em) minmax(2em, 2em) max-content minmax(5em, 5em) minmax(2em, 2em) max-content minmax(2em, 2em) max-content;
+    grid-column: 1 / -1;
+    border: solid 1px;
+    margin: 2px 20px;
+    padding: 2px;
+}
+
+.caja_atascamiento{
+    display: grid;
+    grid-template-columns: max-content  minmax(5em, 5em) max-content minmax(5em, 5em) minmax(2em, 2em) max-content minmax(2em, 2em);
+    grid-column: 1 / -1;
+    border: solid 1px;
+    margin: 2px 20px;
+    padding: 2px;
+}
+
+.caja_claro{
+    display: grid;
+    grid-template-columns: max-content  minmax(5em, 5em) max-content minmax(5em, 5em) minmax(2em, 2em) max-content minmax(2em, 2em);
+    grid-column: 1 / -1;
+    border: solid 1px;
+    margin: 2px 20px;
+    padding: 2px;
+}
+
+.caja_configuracion_maestra{
+    background-color: whitesmoke;
+    border: solid 1px;
+    margin: 2px;
+    padding: 0px;
+}
+
+.caja_tramos, .caja_tramos_sin_borde{
+    display: grid;
+    grid-template-columns: minmax(2em, 3em) minmax(2em, 3em) minmax(3em, 6em) minmax(3em, 6em) minmax(4em, 5em) minmax(4em, 5em) minmax(4em, 5em) minmax(4em, 5em) minmax(4em, 5em) minmax(3em, 5em) minmax(3em, 6.5em) minmax(3em, 6.5em);
+    grid-column: 1 / -1;
+    margin: 2px;
+    padding: 2px;
+}
+
+.caja_tramos{
     border: solid 1px;
 }
 
-.caja13_sin_borde{
+.caja_tramos_sin_borde{
     text-align: center;
 }
 
-.margin-text
-{
-    text-align: right;
-    margin-right: 10px;
-    margin-left: 10px;
+.caja_agregar_quitar{
+    display: grid;
+    grid-template-columns: max-content minmax(3em, 3em) max-content max-content;
+    grid-column: 1 / -1;
+    margin: 2px;
+    padding: 2px;
 }
 
 .text-center{
@@ -136,7 +191,21 @@ p{
     margin: 1px;
 }
 
-.label-text-right{
+.item-center{
+    text-align:center; 
+    vertical-align:middle;
+    padding: 1px;
+    margin: 1px;
+}
+
+.item-right{
+    text-align: right; 
+    vertical-align:middle;
+    padding: 1px;
+    margin: 1px;
+}
+
+.text-right{
     text-align: right;
     padding: 1px;
     margin: 1px;
@@ -157,6 +226,10 @@ p{
 
 #autor{
     margin: 0 auto;
+    text-align: center;
+}
+
+#Miblog{
     text-align: center;
 }
 

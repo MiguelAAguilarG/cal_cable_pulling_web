@@ -7,7 +7,6 @@ const aislantes_conductor_array = [
     ['desnudo', [2.68, 4.25, 6.76, 10.76, 17.09, 27.19, 34.28, 43.23, 55.80, 70.41, 88.74, 111.9, 141.1, 168, 201, 235, 268, 336, 404, 471, 505, 538, 606, 673, 842, 1011, 1180, 1349]]
 ];
 
-
 const aislantes_conductor_D_array = [
     ['THW, THHW, THW-2', [3.378, 3.861, 4.470, 5.994, 7.722, 8.941, 9.652, 10.46, 12.50, 13.51, 14.68, 16.00, 17.48, 19.43, 20.83, 22.12, 23.32, 25.48, 28.27, 30.07, 30.94, 31.75, 33.38, 34.85, 39.09, 42.21, 45.11, 47.80]],
     ['THHN, THWN, THWN-2', [2.819, 3.302, 4.166, 5.486, 6.452, 8.230, 8.941, 9.754, 11.33, 12.34, 13.51, 14.83, 16.31, 18.06, 19.46, 20.75, 21.95, 24.10, 26.70, 28.50, 29.36, 30.18, 31.80, 33.27, 0, 0, 0, 0]],
@@ -36,51 +35,43 @@ const tipos_conduit_array = [
 
 const calibres_string_array = ['14', '12', '10', '8', '6', '4', '3', '2', '1', '1/0', '2/0', '3/0', '4/0', '250', '300', '350', '400', '500', '600', '700', '750', '800', '900', '1000', '1250', '1500', '1750', '2000'];
 
+const calibres_area_mm_array =[2.08, 3.31, 5.26, 8.37, 13.3, 21.2, 26.7, 33.6, 42.4, 53.49, 67.43, 85.01, 107.2, 127, 152.0, 177, 203, 253, 304, 355, 380, 405, 456, 507, 633, 700, 887, 1013];
+
 const porcentaje_llenado_array = [[1,53], [2,31], [3,40]];
 
 const tamano_conduit_string_array = ["1/2", "3/4", "1", "1 1/4", "1 1/2", "2", "2 1/2", "3", "3 1/2", "4", "5", "6"];
 
 const tamano_completo_conduit_string_array = ["1/2 in:  16 mm", "3/4 in:  21 mm", "1 in:  27 mm", "1 1/4 in: 35 mm", "1 1/2 in: 41 mm", "2 in:  53 mm", "2 1/2 in: 63 mm", "3 in:  78 mm", "3 1/2 in: 91 mm", "4 in:  103 mm", "5 in:  129 mm", "6 in:  155 mm"];
 
-var indice = 1;
+var indice = 0;
 
 window.addEventListener("load",calculo_principal,false);
+document.getElementById("formulario0").addEventListener("change", calculo_principal);
 document.getElementById("formulario").addEventListener("change", calculo_principal);
 document.getElementById("formulario2").addEventListener("change", calculo_principal);
+document.getElementById("formulario3").addEventListener("change", calculo_principal);
+document.getElementById("formulario4").addEventListener("change", calculo_principal);
+document.getElementById("formulario5").addEventListener("change", calculo_principal);
 
 function calculo_principal() {
     console.log("cambio");
 
-    var object_variables = obtener_variables();
+    $decimales = Number.parseInt(document.getElementById("decimales").value);
 
-    var $decimales = Number(object_variables.$decimales);
+    /*caja1 */
 
-    var $tipo_conduit = object_variables.$tipo_conduit;
-    var $medida_conduit_input = object_variables.$medida_conduit_input;
+    var $peso_cable = Number.parseFloat(document.getElementById("peso_cable").value);
+    var $T_dispositivo = Number.parseFloat(document.getElementById("T_dispositivo").value);
+    var $T_usuario = Number.parseFloat(document.getElementById("T_usuario").value);
+    var $Tm_factor = Number.parseFloat(document.getElementById("Tm_factor").value);
+    var $PL_maxima = Number.parseFloat(document.getElementById("PL_maxima").value);
+    var $coeficiente_friccion_dinamica = Number.parseFloat(document.getElementById("coeficiente_friccion_dinamica").value);
+    var $opcion_multiconductor = document.getElementById("opcion_multiconductor").checked;
 
-    var $llenado_porc_input = object_variables.$llenado_porc_input;
-    var $auto_llenado = object_variables.$auto_llenado;
+    /*caja2 */
 
-    for (let i_input_tipo_conduit = 0; i_input_tipo_conduit < tipos_conduit_array.length; i_input_tipo_conduit++) {
-
-        if (tipos_conduit_array[i_input_tipo_conduit][0] == $tipo_conduit) {
-            var mm_tamano_conduit_array = tipos_conduit_array[i_input_tipo_conduit][1];
-            break;
-        }
-
-    }
-
-    opts = document.getElementById("lista_desplegable_medida_conduit").options;
-
-    for (let i = 1; i <= mm_tamano_conduit_array.length; i++) {
-        opts[i].disabled = false;
-        if (mm_tamano_conduit_array[i-1] == 0) {
-            opts[i].disabled = true;
-        }
-
-    }
-
-    for(let i = 1; i <= indice; i++) {
+    /* Desabilitar calibres de cables no disponibles*/
+    for(let i = 1; i <= 1; i++) {
 
         document.getElementById("lista_desplegable_calibre" + String(i)).options[27].disabled = false;
         document.getElementById("lista_desplegable_calibre" + String(i)).options[26].disabled = false;
@@ -96,68 +87,89 @@ function calculo_principal() {
 
     }
 
-    var $cables = object_variables.$cables;
+    /* Calcular cables*/
+
+    document.getElementById("lista_desplegable_aislamiento1").disabled = false;
+    document.getElementById("lista_desplegable_aislamiento1").selectedIndex = 1;
+
+    if ($opcion_multiconductor) {
+        document.getElementById("opcion_cable_personalizado").checked = true;
+    }
+
+    var $opcion_cable_personalizado = document.getElementById("opcion_cable_personalizado").checked;
+
+    if ($opcion_multiconductor == false && $opcion_cable_personalizado == true && document.getElementById("D_exterior1").innerHTML == "") {
+        document.getElementById("D_exterior_insertado").value = 18;
+    }
+
+    if ( $opcion_cable_personalizado == true && document.getElementById("D_exterior_insertado").value == "") {
+        document.getElementById("D_exterior_insertado").value = 13;
+
+        if ($opcion_multiconductor) {
+            document.getElementById("D_exterior_insertado").value = 18;
+        }
+    }
+    
+    var $cables = [];
+    var aux_aislamiento;
+    var aux_calibre;
+    var aux_numero_conductores;
+
+    for(let i = 1; i <= 1; i++) {
+        aux_aislamiento = document.getElementById("lista_desplegable_aislamiento" + String(i)).value;
+        aux_calibre = document.getElementById("lista_desplegable_calibre" + String(i)).value;
+        aux_numero_conductores = Number.parseInt(document.getElementById("numero_conductores" + String(i)).value);
+
+        $cables.push([aux_aislamiento, aux_calibre, aux_numero_conductores]);
+    }
+
     var object_suma_areas = sumador_areas($cables);
     var $suma_areas = object_suma_areas.suma_areas;
     var $cantidad_conductores = object_suma_areas.cantidad_conductores;
+    var $area_mm_conductor_array = object_suma_areas.area_mm_conductor_array;
+    var $D_mm_conductor_array = object_suma_areas.D_mm_conductor_array;
 
-    if ($auto_llenado == true) {
-        document.getElementById("input_llenado_porc").disabled = true;
+    var $D_mm_cable_elegido_array = object_suma_areas.D_mm_cable_elegido_array;
 
-        for (let i = 0; i < porcentaje_llenado_array.length; i++) {
-            if ($cantidad_conductores >= porcentaje_llenado_array[i][0]) {
-                document.getElementById("input_llenado_porc").value = porcentaje_llenado_array[i][1], $decimales;
-            }
-        }
+    var $D_exterior = $D_mm_cable_elegido_array[0];
+    document.getElementById("D_exterior1").innerHTML = $D_exterior;
+    if ($opcion_cable_personalizado || $opcion_multiconductor) {
+        document.getElementById("opcion_cable_personalizado").checked = true;
+        document.getElementById("D_exterior1").innerHTML = "";
+        document.getElementById("D_exterior_insertado").disabled = false;
 
-    } else{
-        document.getElementById("input_llenado_porc").disabled = false;
+        document.getElementById("lista_desplegable_aislamiento1").disabled = true;
+        document.getElementById("lista_desplegable_aislamiento1").selectedIndex = 0;
+
+        var $D_exterior_insertado = Number.parseFloat(document.getElementById("D_exterior_insertado").value);
+
+        var $area_mm_D_exterior_insertado = Math.PI*Math.pow($D_exterior_insertado,2)/4;
+
+        object_seleccionador_areas = seleccionador_areas($area_mm_D_exterior_insertado, $area_mm_conductor_array, $cantidad_conductores, $opcion_multiconductor, $opcion_cable_personalizado, $D_mm_conductor_array, $D_exterior_insertado);
+
+        $suma_areas = object_seleccionador_areas.$suma_areas;
+        $D_exterior_insertado = object_seleccionador_areas.$D_exterior_insertado;
+        
+    }
+    else {
+        document.getElementById("D_exterior_insertado").disabled = true;
+        document.getElementById("D_exterior_insertado").value = "";
     }
 
-    var object_tamano_conduit = seleccionador_tamano_conduit($tipo_conduit, $suma_areas, $llenado_porc_input, 0, true);
-    var $indice_conduit_seleccionado = object_tamano_conduit.indice_conduit;
-
-    if ($medida_conduit_input != "AUTO") {
-        for (let i = 0; i < tamano_conduit_string_array.length; i++) {
-
-            if (tamano_conduit_string_array[i] == $medida_conduit_input) {
-                if (i >= $indice_conduit_seleccionado) {
-                    object_tamano_conduit = seleccionador_tamano_conduit($tipo_conduit, $suma_areas, $llenado_porc_input, i, true);
-                    $indice_conduit_seleccionado = object_tamano_conduit.indice_conduit;
-                }
-            }
-    
-        }  
+   
+    if ($opcion_cable_personalizado) {
+        document.getElementById("D_exterior_insertado").value = $D_exterior_insertado.toFixed($decimales); 
     }
 
-    D_mm_cable_elegido_array = D_ext_cable($cables);
+    /*caja3 */
 
-    for(let i = 0; i < indice; i++) {
-        aux_D_exterior = document.getElementById("D_exterior" + String(i+1)).innerHTML = D_mm_cable_elegido_array[i];
-        console.log("hola",  D_mm_cable_elegido_array[i]);
-    }
+    var $tipo_conduit = document.getElementById("lista_desplegable_tipo_conduit").value;
+    var $medida_conduit_input = document.getElementById("lista_desplegable_medida_conduit").value;
 
-    document.getElementById("llenado_mm").innerHTML = $suma_areas;
+    var $llenado_porc_input = Number.parseFloat(document.getElementById("input_llenado_porc").value);
+    var $auto_llenado = document.getElementById("auto_llenado_porc").checked;
 
-    document.getElementById("tamano_aprox").innerHTML = tamano_completo_conduit_string_array[$indice_conduit_seleccionado];
-    document.getElementById("D_interno_aprox").innerHTML = object_tamano_conduit.mm_tamano_conduit;
-    document.getElementById("llenado_porc_tamano_aprox").innerHTML = object_tamano_conduit.llenado_porc_calculado;
-
-    object_tamano_conduit_menor = seleccionador_tamano_conduit($tipo_conduit, $suma_areas, $llenado_porc_input, $indice_conduit_seleccionado-1, false);
-
-    document.getElementById("tamano_menor").innerHTML = tamano_completo_conduit_string_array[object_tamano_conduit_menor.indice_conduit];
-    document.getElementById("D_interno_menor").innerHTML = object_tamano_conduit_menor.mm_tamano_conduit;
-    document.getElementById("llenado_porc_tamano_menor").innerHTML = object_tamano_conduit_menor.llenado_porc_calculado;
-
-    object_tamano_conduit_mayor = seleccionador_tamano_conduit($tipo_conduit, $suma_areas, $llenado_porc_input, $indice_conduit_seleccionado+1, false);
-
-    document.getElementById("tamano_mayor").innerHTML = tamano_completo_conduit_string_array[object_tamano_conduit_mayor.indice_conduit];
-    document.getElementById("D_interno_mayor").innerHTML = object_tamano_conduit_mayor.mm_tamano_conduit;
-    document.getElementById("llenado_porc_tamano_mayor").innerHTML = object_tamano_conduit_mayor.llenado_porc_calculado;
-    
-}
-
-function seleccionador_tamano_conduit($tipo_conduit, $suma_areas, $llenado_porc_input, $input_indice_conduit, $cumplir_condicion) {
+    /* Obtener medidas del tipo de tubo conduit seleccionado*/
 
     for (let i_input_tipo_conduit = 0; i_input_tipo_conduit < tipos_conduit_array.length; i_input_tipo_conduit++) {
 
@@ -168,223 +180,346 @@ function seleccionador_tamano_conduit($tipo_conduit, $suma_areas, $llenado_porc_
 
     }
 
-    var llenado_mm_conduit_calculado;
+    /* Desabilitar medidas de tubos conduit no disponibles*/
+    var opts = document.getElementById("lista_desplegable_medida_conduit").options;
 
-    for (let i_tamano_conduit = $input_indice_conduit; i_tamano_conduit < mm_tamano_conduit_array.length; i_tamano_conduit++) {
-
-        llenado_mm_conduit_calculado = Math.PI*Math.pow(mm_tamano_conduit_array[i_tamano_conduit],2)/4*$llenado_porc_input/100;
-        if (llenado_mm_conduit_calculado >= $suma_areas || $cumplir_condicion == false) {
-            var indice_conduit = i_tamano_conduit;
-            var mm_tamano_conduit = mm_tamano_conduit_array[i_tamano_conduit];
-            var area_mm_conduit_calculado = Math.PI*Math.pow(mm_tamano_conduit_array[i_tamano_conduit],2)/4;
-            break;
+    for (let i = 0; i < mm_tamano_conduit_array.length; i++) {
+        opts[i+1].disabled = false;
+        if (mm_tamano_conduit_array[i] == 0) {
+            opts[i+1].disabled = true;
         }
 
     }
 
-    var llenado_porc_calculado = $suma_areas*100/area_mm_conduit_calculado;
+    /* Establecer valor automatico del porcentaje de llenado del conduit*/
+    if ($auto_llenado == true) {
+        document.getElementById("input_llenado_porc").disabled = true;
 
-    console.log(indice_conduit, mm_tamano_conduit_array,  mm_tamano_conduit, area_mm_conduit_calculado, llenado_mm_conduit_calculado, llenado_porc_calculado);
-
-    return {indice_conduit: indice_conduit,  mm_tamano_conduit:  mm_tamano_conduit, llenado_mm_conduit_calculado: llenado_mm_conduit_calculado, llenado_porc_calculado: llenado_porc_calculado};
-    
-}
-
-function sumador_areas($cables) {
-
-    var area_mm_cable_elegido_array_array = [];
-    var area_mm_cable_elegido_array = [];
-    var suma_areas_array = [];
-    var suma_areas = 0.0;
-    var cantidad_conductores = 0;
-    
-    for (let i_input_tipo_cable = 0; i_input_tipo_cable < indice; i_input_tipo_cable++) {
-
-        for (let i_tipo_cable_array = 0; i_tipo_cable_array < aislantes_conductor_array.length; i_tipo_cable_array++) {
-            if (aislantes_conductor_array[i_tipo_cable_array][0] == $cables[i_input_tipo_cable][0]) {
-                area_mm_cable_elegido_array_array.push(aislantes_conductor_array[i_tipo_cable_array][1]);
-                break;
+        if ($opcion_multiconductor) {
+            document.getElementById("input_llenado_porc").value = porcentaje_llenado_array[0][1];
+        }else{
+            for (let i = 0; i < porcentaje_llenado_array.length; i++) {
+                if ($cantidad_conductores >= porcentaje_llenado_array[i][0]) {
+                    document.getElementById("input_llenado_porc").value = porcentaje_llenado_array[i][1];
+                }
             }
         }
 
-        for (let i_input_calibre = 0; i_input_calibre < 28; i_input_calibre++) {
-            if (calibres_string_array[i_input_calibre] == $cables[i_input_tipo_cable][1]) {
-                area_mm_cable_elegido_array.push(area_mm_cable_elegido_array_array[i_input_tipo_cable][i_input_calibre]);
-                suma_areas_array.push(area_mm_cable_elegido_array[i_input_tipo_cable]*$cables[i_input_tipo_cable][2]);
-                suma_areas += area_mm_cable_elegido_array[i_input_tipo_cable]*$cables[i_input_tipo_cable][2];
-                cantidad_conductores += $cables[i_input_tipo_cable][2];
-                break;
-            }
-        }
-
+    } else{
+        document.getElementById("input_llenado_porc").disabled = false;
     }
-
-    console.log(area_mm_cable_elegido_array_array, area_mm_cable_elegido_array, suma_areas_array, suma_areas)
-
-    return {suma_areas: suma_areas, cantidad_conductores: cantidad_conductores};
-
-}
-
-function D_ext_cable($cables) {
-
-    var D_mm_cable_elegido_array_array = [];
-    var D_mm_cable_elegido_array = [];
-    
-    for (let i_input_tipo_cable = 0; i_input_tipo_cable < indice; i_input_tipo_cable++) {
-
-        for (let i_tipo_cable_array = 0; i_tipo_cable_array < aislantes_conductor_D_array.length; i_tipo_cable_array++) {
-            if (aislantes_conductor_D_array[i_tipo_cable_array][0] == $cables[i_input_tipo_cable][0]) {
-                D_mm_cable_elegido_array_array.push(aislantes_conductor_D_array[i_tipo_cable_array][1]);
-                break;
-            }
-        }
-
-        for (let i_input_calibre = 0; i_input_calibre < 28; i_input_calibre++) {
-            if (calibres_string_array[i_input_calibre] == $cables[i_input_tipo_cable][1]) {
-                D_mm_cable_elegido_array.push(D_mm_cable_elegido_array_array[i_input_tipo_cable][i_input_calibre]);
-                break;
-            }
-        }
-
-    }
-
-    console.log(D_mm_cable_elegido_array_array, D_mm_cable_elegido_array)
-
-    return D_mm_cable_elegido_array;
-
-}
-
-function obtener_variables() {
-    var $decimales = Number(document.getElementById("decimales").value);
 
     var $tipo_conduit = document.getElementById("lista_desplegable_tipo_conduit").value;
     var $medida_conduit_input = document.getElementById("lista_desplegable_medida_conduit").value;
 
-    var $llenado_porc_input = Number(document.getElementById("input_llenado_porc").value);
+    var $llenado_porc_input = Number.parseFloat(document.getElementById("input_llenado_porc").value);
     var $auto_llenado = document.getElementById("auto_llenado_porc").checked;
+ 
+    var object_tamano_conduit = seleccionador_tamano_conduit($tipo_conduit, $suma_areas, $llenado_porc_input, 0, true);
+    var $indice_conduit_seleccionado = object_tamano_conduit.indice_conduit;
 
-    var $cables = [];
-    var aux_aislamiento;
-    var aux_calibre;
-    var aux_numero_conductores;
+    if ($medida_conduit_input != "AUTO") {
+        for (let i = 0; i < tamano_conduit_string_array.length; i++) {
 
-    for(let i = 1; i <= indice; i++) {
-        aux_aislamiento = document.getElementById("lista_desplegable_aislamiento" + String(i)).value;
-        aux_calibre = document.getElementById("lista_desplegable_calibre" + String(i)).value;
-        aux_numero_conductores = Number(document.getElementById("numero_conductores" + String(i)).value);
-
-        $cables.push([aux_aislamiento, aux_calibre, aux_numero_conductores]);
+            if (tamano_conduit_string_array[i] == $medida_conduit_input) {
+                if (i >= $indice_conduit_seleccionado) {
+                    object_tamano_conduit = seleccionador_tamano_conduit($tipo_conduit, $suma_areas, $llenado_porc_input, i, true);
+                    var $indice_conduit_seleccionado = object_tamano_conduit.indice_conduit;
+                }
+            }
+    
+        }  
     }
 
-    console.log($tipo_conduit, $medida_conduit_input, $llenado_porc_input, $auto_llenado, $cables);
+    var $tamano_ducto_resultado = tamano_completo_conduit_string_array[$indice_conduit_seleccionado];
+    var $llenado_ducto_porc_resultado = object_tamano_conduit.llenado_porc_calculado.toFixed($decimales);
+    var $D_interno_ducto_resultado = object_tamano_conduit.mm_tamano_conduit;
 
-    return {$decimales:$decimales, $tipo_conduit: $tipo_conduit, $medida_conduit_input: $medida_conduit_input, $llenado_porc_input: $llenado_porc_input, $auto_llenado: $auto_llenado, $cables: $cables};
+    document.getElementById("tamano_ducto_resultado").innerHTML = $tamano_ducto_resultado;
+    document.getElementById("llenado_ducto_porc_resultado").innerHTML = $llenado_ducto_porc_resultado;
+    document.getElementById("D_interno_ducto_resultado").innerHTML = $D_interno_ducto_resultado;
+    document.getElementById("llenado_mm").innerHTML = $suma_areas.toFixed($decimales);
+
+    /*caja4 */
+
+    var $Dd_resultado = object_tamano_conduit.mm_tamano_conduit/$D_exterior;
+    document.getElementById("Dd_resultado").innerHTML = $Dd_resultado.toFixed($decimales);
+
+    /*caja5 */
+
+    var $Dd_configuracion_superior_insertado = Number.parseFloat(document.getElementById("Dd_configuracion_superior_insertado").value);
+    var $Dd_configuracion_inferior_insertado = Number.parseFloat(document.getElementById("Dd_configuracion_inferior_insertado").value);
+    var $auto_configuracion = document.getElementById("auto_configuracion").value;
+
+    var opcion_configuracion_array = document.getElementsByName("opcion_configuracion");
+    var $opcion_configuracion;
+              
+    for(i = 0; i < opcion_configuracion_array.length; i++) { 
+        if(opcion_configuracion_array[i].checked) {
+            $opcion_configuracion = opcion_configuracion_array[i].value;
+        }
+    }
+
+    var object_configuracion = seleccionador_configuracion($cantidad_conductores, $Dd_resultado, $Dd_configuracion_superior_insertado, $Dd_configuracion_inferior_insertado, $opcion_configuracion, $opcion_multiconductor);
+
+    var $configuracion_resultado = object_configuracion.$configuracion_resultado;
+    var $configuración_cumplimiento_resultado = object_configuracion.$configuración_cumplimiento_resultado;
+
+    document.getElementById("configuracion_resultado").innerHTML = $configuracion_resultado;
+    document.getElementById("configuracion_cumplimiento_resultado").innerHTML = $configuración_cumplimiento_resultado;
+
+    /*caja6 */
+    $atascamiento_superior_insertado = Number.parseFloat(document.getElementById("atascamiento_superior_insertado").value);
+    $atascamiento_inferior_insertado = Number.parseFloat(document.getElementById("atascamiento_inferior_insertado").value);
+    $auto_atascamiento = document.getElementById("auto_atascamiento").value;
+
+    var $atascamiento_superior_insertado = $atascamiento_superior_insertado;
+    var $atascamiento_inferior_insertado = $atascamiento_inferior_insertado;
+    var $auto_atascamiento = $auto_atascamiento;
+
+    var $atascamiento_cumplimiento_resultado = calculador_atascamiento($cantidad_conductores, $Dd_resultado, $atascamiento_superior_insertado, $atascamiento_inferior_insertado, $opcion_multiconductor);
+
+    document.getElementById("atascamiento_cumplimiento_resultado").innerHTML = $atascamiento_cumplimiento_resultado;
+
+    /*caja7 */
+    $claro_insertado = Number.parseFloat(document.getElementById("claro_insertado").value);
+    $auto_claro = document.getElementById("auto_claro").value;
+
+    object_claro = calculador_claro($cantidad_conductores,  $D_exterior, $D_interno_ducto_resultado, $configuracion_resultado, $opcion_multiconductor);
+    $claro_resultado = object_claro.$claro_resultado;
+    $claro_cumplimiento_resultado = object_claro.$claro_cumplimiento_resultado;
+
+    document.getElementById("claro_resultado").innerHTML = $claro_resultado.toFixed($decimales);
+    document.getElementById("claro_cumplimiento_resultado").innerHTML = $claro_cumplimiento_resultado;
+
+    /*caja8 */
+    var $peso_cable = Number.parseFloat(document.getElementById("peso_cable").value);
+    var $T_dispositivo = Number.parseFloat(document.getElementById("T_dispositivo").value);
+    var $T_usuario = Number.parseFloat(document.getElementById("T_usuario").value);
+    var $Tm_factor = Number.parseFloat(document.getElementById("Tm_factor").value);
+    var $PL_maxima = Number.parseFloat(document.getElementById("PL_maxima").value);
+    var $coeficiente_friccion_dinamica = Number.parseFloat(document.getElementById("coeficiente_friccion_dinamica").value);
+
+    for (let i_input_calibre = 0; i_input_calibre < 28; i_input_calibre++) {
+        if (calibres_string_array[i_input_calibre] == $cables[0][1]) {
+            var $area_conductor = calibres_area_mm_array[i_input_calibre];
+            break;
+        }
+    }
+    var $T_conductor = $Tm_factor*$area_conductor;
+    document.getElementById("T_conductor").innerHTML = $T_conductor.toFixed($decimales);
+
+    var $T_cable = $T_conductor*$cantidad_conductores;
+    document.getElementById("T_cable").innerHTML = $T_cable.toFixed($decimales);
+
+    var $T_maxima = Math.min($T_dispositivo, $T_usuario, $T_cable);
+    document.getElementById("T_maxima").innerHTML = $T_maxima.toFixed($decimales);
+
+    var $tramos = [];
+
+    for(let i = 0; i <= indice; i++) {
+        $tramos.push(obtener_tramos(i)); 
+    }
+
+    console.log("$tramos", $tramos);
+
+    var $Longitud_total = 0;
+    var aux_$Longitud;
+
+    for (let i = 0; i <= indice; i++) {
+        if ($tramos[i][8] == "curva") {
+            aux_$Longitud = Math.PI*2*$tramos[i][6]*Math.abs($tramos[i][7])/360;
+            $tramos[i][4] = aux_$Longitud;
+            document.getElementById("Longitud" + String(i)).value = aux_$Longitud.toFixed($decimales);
+        } else {
+            aux_$Longitud = $tramos[i][4];
+        }
+
+        $Longitud_total +=  aux_$Longitud;
+    }
+    document.getElementById("Longitud_total").innerHTML = $Longitud_total.toFixed($decimales);
+
+    if ($opcion_multiconductor) {
+        var $peso_total_cable = $peso_cable*$Longitud_total;
+        var $peso_cable_corregido = $peso_cable;
+    } else {
+        var $peso_total_cable = $peso_cable*$Longitud_total*$cantidad_conductores;
+        var $peso_cable_corregido = $peso_cable*$cantidad_conductores;
+    }
+
+    document.getElementById("peso_total_cable").innerHTML = $peso_total_cable.toFixed($decimales);
+
+    var $w = calculador_w($cantidad_conductores,  $D_exterior, $D_interno_ducto_resultado, $configuracion_resultado, $opcion_multiconductor);
+    document.getElementById("w").innerHTML = $w.toFixed($decimales);
+
+    var $Longitud_maxima = $T_maxima/($peso_cable_corregido*$coeficiente_friccion_dinamica*$w);
+    document.getElementById("Longitud_maxima").innerHTML = $Longitud_maxima.toFixed($decimales);
+
+    for(let i = 0; i <= indice; i++) {
+        $tramos[i][2] = calculador_tension($tramos, i, $coeficiente_friccion_dinamica, $w, $peso_cable_corregido);
+        $tramos[i][3] = calculador_PL($tramos, i, $w, $cantidad_conductores, $configuracion_resultado, $opcion_multiconductor);
+
+        if ($tramos[i][2] > $T_maxima) {
+            $tramos[i][10] = "NO CUMPLE"
+            document.getElementById("cumplimiento_tension" + String(i)).innerHTML = "NO CUMPLE";
+        } else{
+            $tramos[i][10] = "SI CUMPLE"
+            document.getElementById("cumplimiento_tension" + String(i)).innerHTML = "SI CUMPLE";
+        }
+
+        if ($tramos[i][3] > $PL_maxima) {
+            $tramos[i][11] = "NO CUMPLE"
+            document.getElementById("cumplimiento_PL" + String(i)).innerHTML = "NO CUMPLE";
+        } else{
+            $tramos[i][11] = "SI CUMPLE"
+            document.getElementById("cumplimiento_PL" + String(i)).innerHTML = "SI CUMPLE";
+        }
+
+        if ($tramos[i][8] == "curva") {
+            document.getElementById("Longitud" + String(i)).disabled = true;
+            document.getElementById("inclinacion" + String(i)).disabled = true;
+
+            document.getElementById("radio" + String(i)).disabled = false;
+            document.getElementById("angulo" + String(i)).disabled = false;
+
+        } else{
+
+            document.getElementById("radio" + String(i)).disabled = true;
+            document.getElementById("angulo" + String(i)).disabled = true;
+
+            document.getElementById("Longitud" + String(i)).disabled = false;
+            document.getElementById("inclinacion" + String(i)).disabled = false;
+        }
+
+        document.getElementById("tension" + String(i)).innerHTML = $tramos[i][2].toFixed($decimales);
+        document.getElementById("PL" + String(i)).innerHTML = $tramos[i][3].toFixed($decimales);
+    }
+
+    $indice_boton = $tramos.length-1;
+    document.getElementById("indice_boton").value = $indice_boton;
 }
 
-function agregar(validacion_quitar = false) {
+function agregar(id, validacion_quitar = false) {
     console.log("agregar_inicio");
-    var cables = document.getElementById('formulario2');
+    var tramos = document.getElementById('formulario5');
     var aux = "";
+
+    var $tramos = [];
+
+    for(let i = 0; i <= indice; i++) {
+        $tramos.push(obtener_tramos(i));
+    }
+
+    if (validacion_quitar == true) {
+        $tramos.push(obtener_tramos(indice+1));
+    }
+
+    if (validacion_quitar == true) {
+        $tramos.push(obtener_tramos(indice+2));
+    }
+
+    var $indice_boton = Number.parseInt(document.getElementById("indice_boton").value);
+
+    if ($indice_boton >= $tramos.length) {
+        $indice_boton = $tramos.length-1;
+        document.getElementById("indice_boton").value = $indice_boton;
+    }
+
+    console.log("holat",indice,  $tramos);
 
     indice = indice + 1;
 
-    var $cables = [];
-
-    var aux_aislamiento;
-    var aux_calibre;
-    var aux_numero_conductores;
-
-    for(let i = 1; i <= indice; i++) {
-        if (validacion_quitar == true || i < indice) {
-            aux_aislamiento = document.getElementById("lista_desplegable_aislamiento" + String(i)).value;
-            aux_calibre = document.getElementById("lista_desplegable_calibre" + String(i)).value;
-            aux_numero_conductores = Number(document.getElementById("numero_conductores" + String(i)).value);
     
-            $cables.push([aux_aislamiento, aux_calibre, aux_numero_conductores]); 
-        }
+    var $agregar_atras = document.getElementById("agregar_atras").value;
+    var $agregar_adelante = document.getElementById("agregar_adelante").value;
+    var $quitar = Number.parseInt(document.getElementById("quitar_id").value);
+    if (validacion_quitar == false) {
+        var aux_$tramos = $tramos;
+        $tramos = [];
+        for(let i = 0; i < indice; i++) {
+    
+            if (i == $indice_boton && id == "agregar_atras") {
+                $tramos.push(aux_$tramos[0]);
+            }
+    
+            if (i < indice) {
+                $tramos.push(aux_$tramos[i]);
+            }
 
+            if (i == $indice_boton && id == "agregar_adelante") {
+                $tramos.push(aux_$tramos[0]);
+            }
+    
+        }
     }
 
-    for(let i = 1; i <= indice; i++) {
+    if (validacion_quitar == true) {
+        var aux_$tramos = $tramos;
+        $tramos = [];
+        for(let i = 0; i <= indice+1; i++) {
+
+    
+            if (i == $indice_boton) {
+                continue;
+            }
+    
+            $tramos.push(aux_$tramos[i]);
+        }
+    }
+    console.log("holat",indice, $tramos);
+    for(let i = 0; i <= indice; i++) {
 
         aux += `
-            <div class=caja4_cables>
-                <select name="lista_desplegable_aislamiento" id="lista_desplegable_aislamiento${i}" class="datos">
-                    <option value="THW, THHW, THW-2">THW, THHW, THW-2</option> 
-                    <option value="THHN, THWN, THWN-2">THHN, THWN, THWN-2</option>
-                    <option value="XHH, XHHW, XHHW-2">XHH, XHHW, XHHW-2</option>
-                    <option value="RHH, RHW, RHW-2">RHH, RHW, RHW-2</option>
-                    <option value="RHH*, RHW*, RHW-2*">RHH*, RHW*, RHW-2*</option>
-                    <option value="desnudo">Sin aislamiento</option>
-                </select>
-
-                <select name="lista_desplegable_calibre" id="lista_desplegable_calibre${i}" class="datos">
-                    <option value="14">14</option>
-                    <option value="12">12</option>
-                    <option value="10">10</option>
-                    <option value="8">8</option>
-                    <option value="6">6</option>
-                    <option value="4">4</option>
-                    <option value="3">3</option>
-                    <option value="2">2</option>
-                    <option value="1">1</option>
-                    <option value="1/0">1/0</option>
-                    <option value="2/0">2/0</option>
-                    <option value="3/0">3/0</option>
-                    <option value="4/0">4/0</option>
-                    <option value="250">250</option>
-                    <option value="300">300</option>
-                    <option value="350">350</option>
-                    <option value="400">400</option>
-                    <option value="500">500</option>
-                    <option value="600">600</option>
-                    <option value="700">700</option>
-                    <option value="750">750</option>
-                    <option value="800">800</option>
-                    <option value="900">900</option>
-                    <option value="1000">1000</option>
-                    <option value="1250">1250</option>
-                    <option value="1500">1500</option>
-                    <option value="1750">1570</option>
-                    <option value="2000">2000</option>
-                </select>
-
-                <input type="number" min="0" step="1" value=1 name="numero_conductores" id="numero_conductores${i}" class="datos">
-
-                <p id="D_exterior${i}" class = "resultados"></p>
-            </div>
+        <div class="caja_tramos">
+            <p class="resultados" id="inicio${i}">${i}</p>
+            <p class="resultados" id="fin${i}">${i+1}</p>
+            <p class="resultados" id="tension${i}">3</p>
+            <p class="resultados" id="PL${i}">4</p>
+            <input type="number" min="1" step="1" value="10" name="Longitud0" id="Longitud${i}" class="datos">
+            <input type="number" step="1" value="0" name="inclinacion0" id="inclinacion${i}" class="datos">
+            <input type="number" min="0.01" step="0.01" value="0.5" name="radio0" id="radio${i}" class="datos">
+            <input type="number" min="0.1" step="0.1" value="90" name="angulo0" id="angulo${i}" class="datos">
+            <select name="lista_desplegable_radio_curva0" id="lista_desplegable_radio_curva${i}" class="datos">
+                <option value="recta" selected>Recta</option> 
+                <option value="curva">Curva</option>
+            </select>
+            <p class="item-center" ><input type="checkbox" name="personalizar_tramo${i}" id="personalizar_tramo${i}" class="datos"></p>
+            <p id="cumplimiento_tension${i}" class="resultados">NO PASA</p>
+            <p id="cumplimiento_PL${i}" class="resultados">NO PASA</p>
+        </div>
         `;
     }
     
-    cables.innerHTML = aux;
+    tramos.innerHTML = aux;
 
-    aux_aislamiento = document.getElementById("lista_desplegable_aislamiento" + String(indice)).value;
-    aux_calibre = document.getElementById("lista_desplegable_calibre" + String(indice)).value;
-    aux_numero_conductores = Number(document.getElementById("numero_conductores" + String(indice)).value);
-
-    $cables.push([aux_aislamiento, aux_calibre, aux_numero_conductores]);
-
-    var e = 0;
-    for(let i = 1; i <= indice; i++) {
-        document.getElementById("lista_desplegable_aislamiento" + String(i)).value = $cables[e][0];
-        document.getElementById("lista_desplegable_calibre" + String(i)).value = $cables[e][1];
-        document.getElementById("numero_conductores" + String(i)).value = $cables[e][2];
-        e = e+1;
+    for(let i = 0; i <= indice; i++) {
+        document.getElementById("inicio" + String(i)).innerHTML = i;
+        document.getElementById("fin" + String(i)).innerHTML = i+1;
+        document.getElementById("tension" + String(i)).value = $tramos[i][2];
+        document.getElementById("PL" + String(i)).value = $tramos[i][3];
+        document.getElementById("Longitud" + String(i)).value = $tramos[i][4];
+        document.getElementById("inclinacion" + String(i)).value = $tramos[i][5];
+        document.getElementById("radio" + String(i)).value = $tramos[i][6];
+        document.getElementById("angulo" + String(i)).value = $tramos[i][7];
+        document.getElementById("lista_desplegable_radio_curva" + String(i)).value = $tramos[i][8];
+        document.getElementById("personalizar_tramo" + String(i)).checked = $tramos[i][9];
+        document.getElementById("cumplimiento_tension" + String(i)).innerHTML = $tramos[i][10];
+        document.getElementById("cumplimiento_PL" + String(i)).innerHTML = $tramos[i][11];
     }
 
     calculo_principal();
 
 }
 
-function quitar() {
+function quitar(id) {
     console.log("quitar_inicio");
 
     validacion_quitar = true;
-    if (indice <= 1) {
-        indice = 1;
+    if (indice <= 0) {
+        indice = 0;
     } else {
         indice = indice-2;
-        agregar(validacion_quitar);
+        agregar(id, validacion_quitar);
     }
 
 }
