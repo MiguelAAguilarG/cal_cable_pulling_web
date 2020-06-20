@@ -1,7 +1,7 @@
 # cal_cable_pulling_web
 ## Calculadora de jalado de cables
 
-https://miguelaaguilarg.github.io/cal_conduit_web/
+https://miguelaaguilarg.github.io/cal_cable_pulling_web/
 
 ### Bibliografía
 - IEEE Std 1185-2010. IEEE Recommended Practice for Cable Installation in Generating Stations and Industrial Facilities
