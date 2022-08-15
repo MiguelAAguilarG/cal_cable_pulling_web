@@ -93,7 +93,7 @@ function calculo_principal() {
     if (opcion_multiconductor) {
         document.getElementById("opcion_cable_personalizado").checked = true;
     } else {
-        document.getElementById("opcion_cable_personalizado").checked = false;
+
     }
 
     var opcion_cable_personalizado = document.getElementById("opcion_cable_personalizado").checked;
@@ -135,7 +135,6 @@ function calculo_principal() {
         document.getElementById("D_exterior_insertado").disabled = false;
 
         document.getElementById("lista_desplegable_aislamiento1").disabled = true;
-        document.getElementById("lista_desplegable_aislamiento1").selectedIndex = 0;
 
         var D_exterior_insertado = Number.parseFloat(document.getElementById("D_exterior_insertado").value);
 
@@ -145,6 +144,8 @@ function calculo_principal() {
 
         suma_areas = object_seleccionador_areas.suma_areas;
         D_exterior_insertado = object_seleccionador_areas.D_exterior_insertado;
+        D_exterior = D_exterior_insertado;
+        document.getElementById("D_exterior_insertado").value = D_exterior_insertado.toFixed(decimales);
         
     }
     else {
@@ -152,12 +153,6 @@ function calculo_principal() {
         document.getElementById("D_exterior_insertado").value = "";
 
         document.getElementById("lista_desplegable_aislamiento1").disabled = false;
-    }
-
-   
-    if (opcion_cable_personalizado) {
-        // Aqui hay algo raro
-        document.getElementById("D_exterior_insertado").value = D_exterior_insertado.toFixed(decimales); 
     }
 
     /*caja3 */
@@ -280,7 +275,7 @@ function calculo_principal() {
         // claro 
     claro_insertado = Number.parseFloat(document.getElementById("claro_insertado").value);
     auto_claro = document.getElementById("auto_claro").value;
-
+    console.log(opcion_multiconductor) 
     object_claro = calculador_claro(cantidad_conductores,  D_exterior, D_interno_ducto_resultado, configuracion_resultado, opcion_multiconductor);
     claro_resultado = object_claro.claro_resultado;
     claro_cumplimiento_resultado = object_claro.claro_cumplimiento_resultado;
@@ -312,6 +307,8 @@ function calculo_principal() {
     var T_maxima = Math.min(T_dispositivo, T_usuario, T_cable);
     document.getElementById("T_maxima").innerHTML = T_maxima.toFixed(decimales);
 
+    /*caja9 */
+    // resultados
     var tramos = [];
 
     for(let i = 0; i <= indice; i++) {

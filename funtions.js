@@ -51,19 +51,26 @@ function seleccionador_areas(area_mm_D_exterior_insertado, area_mm_conductor_arr
     if (opcion_multiconductor == true && opcion_cable_personalizado == true) {
 
         var D_exterior_insertado
-
-        window.alert("Diametro del cable multiconductor personalizado irreal, inserta un diámetro del cable real, de forma automatica se establecerá un diámetro según el número de conductores, 1 conductor => D = D_desnudo, 2 conductores => D = 2*D_desnudo, 3 conductores => D = D resultante de una configuracion triángulo equilátero con conductores desnudos, 4 conductores => D = D resultante de una configuracion cuadrada con conductores desnudos");
+        let flag = false
     
         if (cantidad_conductores == 1 && D_exterior_insertado < D_mm_conductor_array[0]){
             D_exterior_insertado = D_mm_conductor_array[0];
+            flag = true
         } else if (cantidad_conductores == 2 && D_exterior_insertado < 2*D_mm_conductor_array[0]) {
             D_exterior_insertado = 2*D_mm_conductor_array[0];
+            flag = true
         } else if (cantidad_conductores == 3 && D_exterior_insertado < (2*Math.sqrt(3)/3 + 1)*D_mm_conductor_array[0]) {
             D_exterior_insertado = (2*Math.sqrt(3)/3 + 1)*D_mm_conductor_array[0];
+            flag = true
         } else if (cantidad_conductores == 4 && D_exterior_insertado < (Math.sqrt(2) + 1)*D_mm_conductor_array[0]) {
             D_exterior_insertado = (Math.sqrt(2) + 1)*D_mm_conductor_array[0];
+            flag = true
         } else {
             
+        }
+
+        if (flag) {
+            window.alert("Diametro del cable multiconductor personalizado irreal, inserta un diámetro del cable real, de forma automatica se establecerá un diámetro según el número de conductores, 1 conductor => D = D_desnudo, 2 conductores => D = 2*D_desnudo, 3 conductores => D = D resultante de una configuracion triángulo equilátero con conductores desnudos, 4 conductores => D = D resultante de una configuracion cuadrada con conductores desnudos");
         }
     
         var suma_areas = Math.PI*Math.pow(D_exterior_insertado,2)/4;
