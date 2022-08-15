@@ -121,7 +121,7 @@ function seleccionador_tamano_conduit(tipo_conduit, suma_areas, llenado_porc_inp
 }
 
 function seleccionador_configuracion(cantidad_conductores, Dd_resultado, Dd_configuracion_superior_insertado, Dd_configuracion_inferior_insertado, auto_configuracion, opcion_multiconductor) {
-    var configuración_cumplimiento_resultado = "";
+    var configuracion_cumplimiento_resultado = "";
 
     if (cantidad_conductores == 1 || opcion_multiconductor){
         var configuracion_resultado = "Acunada";
@@ -134,7 +134,7 @@ function seleccionador_configuracion(cantidad_conductores, Dd_resultado, Dd_conf
             var configuracion_resultado = "Acunada";
         } else {
             var configuracion_resultado = auto_configuracion;
-            configuración_cumplimiento_resultado = "No cumple ninguna condición";
+            configuracion_cumplimiento_resultado = "No cumple ninguna condición";
             console.log("No cumple ninguna condición");
         }
     } else if (cantidad_conductores == 4) {
@@ -143,7 +143,7 @@ function seleccionador_configuracion(cantidad_conductores, Dd_resultado, Dd_conf
         
     }
     
-    return {configuracion_resultado:configuracion_resultado, configuración_cumplimiento_resultado:configuración_cumplimiento_resultado};
+    return {configuracion_resultado:configuracion_resultado, configuracion_cumplimiento_resultado:configuracion_cumplimiento_resultado};
 }
 
 function calculador_atascamiento(cantidad_conductores, Dd_resultado, atascamiento_superior_insertado, atascamiento_inferior_insertado, opcion_multiconductor) {

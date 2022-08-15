@@ -219,8 +219,6 @@
                         <p class="text-right">Acunada, si D>=</p>
                         <input type="number" min="3.0" step="0.1" value="3.0" name="Dd_configuracion_superior_insertado" id="Dd_configuracion_superior_insertado" class="datos">
                         <p>d</p>
-                        <label for="auto_configuracion" class="text-right">AUTO: </label>
-                        <input type="checkbox" name="auto_configuracion" id="auto_configuracion" class="datos" checked>
                         <p id="configuracion_cumplimiento_resultado" class="resultados">No cumple ninguna condición</p>
                     </div>
 
@@ -257,9 +255,6 @@
                     <p class="text-center">d <= D <= </p>
                     <input type="number" min="2.8" max="3.2"  step="0.1" value="3.2" name="atascamiento_superior_insertado" id="atascamiento_superior_insertado" class="datos">
                     <p>d</p>
-    
-                    <label for="auto_atascamiento" class="text-right">AUTO: </label>
-                    <input type="checkbox" name="auto_atascamiento" id="auto_atascamiento" class="datos" checked>
                 </div>
 
                 <br>
@@ -277,9 +272,6 @@
                     <label for="claro_insertado">Claro >= </label>
                     <input type="number" min="1" step="1" value="6" name="claro_insertado" id="claro_insertado" class="datos">
                     <p> [mm]</p>
-    
-                    <label for="auto_claro" class="text-right">AUTO: </label>
-                    <input type="checkbox" name="auto_claro" id="auto_claro" class="resultados" checked>
                 </div>
 
                 <div class="caja_claro">
@@ -409,7 +401,7 @@
             </ul>
         </ul>
 
-        <p class="nota">Checkbox sin función: Configuración (AUTO), Claro(AUTO), Atascamiento(AUTO), Prsonlzar.</p>
+        <p class="nota">Checkbox sin función: Prsonlzar.</p>
     </div>
 
     <script src="app.js"></script>

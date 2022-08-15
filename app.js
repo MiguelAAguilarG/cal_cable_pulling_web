@@ -238,7 +238,6 @@ function calculo_principal() {
         // configuracion de los cables
     var Dd_configuracion_superior_insertado = Number.parseFloat(document.getElementById("Dd_configuracion_superior_insertado").value);
     var Dd_configuracion_inferior_insertado = Number.parseFloat(document.getElementById("Dd_configuracion_inferior_insertado").value);
-    var auto_configuracion = document.getElementById("auto_configuracion").value;
 
     var opcion_configuracion_array = document.getElementsByName("opcion_configuracion");
     var opcion_configuracion;
@@ -252,16 +251,20 @@ function calculo_principal() {
     var object_configuracion = seleccionador_configuracion(cantidad_conductores, Dd_resultado, Dd_configuracion_superior_insertado, Dd_configuracion_inferior_insertado, opcion_configuracion, opcion_multiconductor);
 
     var configuracion_resultado = object_configuracion.configuracion_resultado;
-    var configuración_cumplimiento_resultado = object_configuracion.configuración_cumplimiento_resultado;
+    var configuracion_cumplimiento_resultado = object_configuracion.configuracion_cumplimiento_resultado;
 
     document.getElementById("configuracion_resultado").innerHTML = configuracion_resultado;
-    document.getElementById("configuracion_cumplimiento_resultado").innerHTML = configuración_cumplimiento_resultado;
+    if (configuracion_cumplimiento_resultado == "") {
+        document.getElementById("configuracion_cumplimiento_resultado").hidden = true;
+    } else {
+
+    }
+    document.getElementById("configuracion_cumplimiento_resultado").innerHTML = configuracion_cumplimiento_resultado;
 
     /*caja6 */
         // atascamiento 
     atascamiento_superior_insertado = Number.parseFloat(document.getElementById("atascamiento_superior_insertado").value);
     atascamiento_inferior_insertado = Number.parseFloat(document.getElementById("atascamiento_inferior_insertado").value);
-    auto_atascamiento = document.getElementById("auto_atascamiento").value;
 
     var atascamiento_superior_insertado = atascamiento_superior_insertado;
     var atascamiento_inferior_insertado = atascamiento_inferior_insertado;
@@ -274,8 +277,6 @@ function calculo_principal() {
     /*caja7 */
         // claro 
     claro_insertado = Number.parseFloat(document.getElementById("claro_insertado").value);
-    auto_claro = document.getElementById("auto_claro").value;
-    console.log(opcion_multiconductor) 
     object_claro = calculador_claro(cantidad_conductores,  D_exterior, D_interno_ducto_resultado, configuracion_resultado, opcion_multiconductor);
     claro_resultado = object_claro.claro_resultado;
     claro_cumplimiento_resultado = object_claro.claro_cumplimiento_resultado;
