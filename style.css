@@ -224,6 +224,13 @@ p{
     list-style-type: none
 }
 
+.nota_tabla{
+    font-style: italic;
+    font-size: small;
+    display: flex;
+    justify-content: center;
+}
+
 #autor{
     margin: 0 auto;
     text-align: center;

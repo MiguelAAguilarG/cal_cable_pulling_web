@@ -396,8 +396,6 @@ function calculo_principal() {
 
 function agregar(id, validacion_quitar = false) {
     console.log("agregar_inicio");
-    var tramos = document.getElementById('formulario5');
-    var aux = "";
 
     var tramos = [];
 
@@ -421,7 +419,6 @@ function agregar(id, validacion_quitar = false) {
     }
 
     indice = indice + 1;
-
     
     var agregar_atras = document.getElementById("agregar_atras").value;
     var agregar_adelante = document.getElementById("agregar_adelante").value;
@@ -459,30 +456,32 @@ function agregar(id, validacion_quitar = false) {
             tramos.push(aux_tramos[i]);
         }
     }
+
+    var aux = "";
     for(let i = 0; i <= indice; i++) {
 
         aux += `
         <div class="caja_tramos">
-            <p class="resultados" id="inicio{i}">{i}</p>
-            <p class="resultados" id="fin{i}">{i+1}</p>
-            <p class="resultados" id="tension{i}">3</p>
-            <p class="resultados" id="PL{i}">4</p>
-            <input type="number" min="1" step="1" value="10" name="Longitud0" id="Longitud{i}" class="datos">
-            <input type="number" step="1" value="0" name="inclinacion0" id="inclinacion{i}" class="datos">
-            <input type="number" min="0.01" step="0.01" value="0.5" name="radio0" id="radio{i}" class="datos">
-            <input type="number" min="0.1" step="0.1" value="90" name="angulo0" id="angulo{i}" class="datos">
-            <select name="lista_desplegable_radio_curva0" id="lista_desplegable_radio_curva{i}" class="datos">
+            <p class="resultados" id="inicio${i}">${i}</p>
+            <p class="resultados" id="fin${i}">${i+1}</p>
+            <p class="resultados" id="tension${i}">3</p>
+            <p class="resultados" id="PL${i}">4</p>
+            <input type="number" min="1" step="1" value="10" name="Longitud0" id="Longitud${i}" class="datos">
+            <input type="number" step="1" value="0" name="inclinacion0" id="inclinacion${i}" class="datos">
+            <input type="number" min="0.01" step="0.01" value="0.5" name="radio0" id="radio${i}" class="datos">
+            <input type="number" min="0.1" step="0.1" value="90" name="angulo0" id="angulo${i}" class="datos">
+            <select name="lista_desplegable_radio_curva0" id="lista_desplegable_radio_curva${i}" class="datos">
                 <option value="recta" selected>Recta</option> 
                 <option value="curva">Curva</option>
             </select>
-            <p class="item-center" ><input type="checkbox" name="personalizar_tramo{i}" id="personalizar_tramo{i}" class="datos"></p>
-            <p id="cumplimiento_tension{i}" class="resultados">NO PASA</p>
-            <p id="cumplimiento_PL{i}" class="resultados">NO PASA</p>
+            <p class="item-center" ><input type="checkbox" name="personalizar_tramo${i}" id="personalizar_tramo${i}" class="datos"></p>
+            <p id="cumplimiento_tension${i}" class="resultados">NO PASA</p>
+            <p id="cumplimiento_PL${i}" class="resultados">NO PASA</p>
         </div>
         `;
     }
     
-    tramos.innerHTML = aux;
+    document.getElementById('formulario5').innerHTML = aux;
 
     for(let i = 0; i <= indice; i++) {
         document.getElementById("inicio" + String(i)).innerHTML = i;
