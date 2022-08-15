@@ -373,6 +373,7 @@ function calculo_principal() {
         if (tramos[i][8] == "curva") {
             document.getElementById("Longitud" + String(i)).disabled = true;
             document.getElementById("inclinacion" + String(i)).disabled = true;
+            document.getElementById("inclinacion" + String(i)).value = 0;
 
             document.getElementById("radio" + String(i)).disabled = false;
             document.getElementById("angulo" + String(i)).disabled = false;
@@ -419,7 +420,7 @@ function agregar(id, validacion_quitar = false) {
     }
 
     indice = indice + 1;
-    
+
     var agregar_atras = document.getElementById("agregar_atras").value;
     var agregar_adelante = document.getElementById("agregar_adelante").value;
     var quitar = Number.parseInt(document.getElementById("quitar_id").value);
