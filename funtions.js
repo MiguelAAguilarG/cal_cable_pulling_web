@@ -208,7 +208,7 @@ function calculador_w(cantidad_conductores,  D_exterior, D_interno_ducto_resulta
     } else if (cantidad_conductores == 4) {
         var w = 1 + 2*Math.pow(D_exterior/(D_interno_ducto_resultado - D_exterior),2);
     } else {
-        
+        var w = 1.4;
     }
     
     return w;
